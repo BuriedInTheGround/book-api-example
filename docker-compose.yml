@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  app:
+    image: golang:1.14-alpine
+    command: sh -c './wait-for mysql:3306 -- go get github.com/cespare/reflex && reflex -c reflex.conf'
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: books
+
+  mysql:
+    image: mysql:5.7
+    command: --max_allowed_packet=268435456
+    volumes:
+      - books-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: books
+
+volumes:
+  books-mysql-data:
