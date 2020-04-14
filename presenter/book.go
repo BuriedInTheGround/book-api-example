@@ -2,7 +2,6 @@ package presenter
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/BuriedInTheGround/book-api-example/data"
@@ -18,7 +17,6 @@ type BookPayload struct {
 
 // Bind makes BookPayload a render.Binder.
 func (bp *BookPayload) Bind(r *http.Request) error {
-	fmt.Println(r.Context().Value(apiContextKey("book")))
 	if bp.Book == nil {
 		return errors.New("missing required Book fields")
 	}

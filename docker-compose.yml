@@ -3,7 +3,9 @@ version: "3.7"
 services:
   app:
     image: golang:1.14-alpine
-    command: sh -c './wait-for mysql:3306 -- go get github.com/cespare/reflex && reflex -c reflex.conf'
+    # Comment out this first version of 'command' for development (live-reloading)
+    # command: sh -c './wait-for mysql:3306 -- go get github.com/cespare/reflex && reflex -c reflex.conf'
+    command: sh -c 'go mod tidy && go run .'
     ports:
       - 3000:3000
     depends_on:
@@ -16,6 +18,10 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: books
+      # Comment out the following line to clear the database when live-reloading
+      # CLEAR_DB_ON_RELOAD: "on"
+      # Comment out the following line to activate upper-db debug logs
+      # UPPERIO_DB_DEBUG: 1
 
   mysql:
     image: mysql:5.7

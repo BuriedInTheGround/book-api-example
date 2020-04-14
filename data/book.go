@@ -2,7 +2,7 @@ package data
 
 // Book data model.
 type Book struct {
-	ID     string `json:"id"`
-	Title  string `json:"title"`
-	Author string `json:"author"`
+	ID     int    `db:"id,omitempty" json:"id"`
+	Title  string `db:"title" json:"title"`
+	Author string `db:"author" json:"author"`
 }

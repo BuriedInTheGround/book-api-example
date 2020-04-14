@@ -6,13 +6,14 @@ import (
 	"github.com/go-chi/render"
 )
 
+// ErrorResponse is a payload for errors handling.
 type ErrorResponse struct {
 	Error          error `json:"-"` // Low-level runtime error.
-	HTTPStatusCode int   `json:"-"` //HTTP reponse status code.
+	HTTPStatusCode int   `json:"-"` // HTTP reponse status code.
 
-	StatusText string `json:"status"`          //User-level status message.
-	AppCode    int64  `json:"code,omitempty"`  //Application-specific error code.
-	ErrorText  string `json:"error,omitempty"` //Application-level error message used for debugging.
+	StatusText string `json:"status"`          // User-level status message.
+	AppCode    int64  `json:"code,omitempty"`  // Application-specific error code.
+	ErrorText  string `json:"error,omitempty"` // Application-level error message used for debugging.
 }
 
 // Render makes ErrorResponse a render.Renderer.
@@ -47,4 +48,10 @@ func ErrorRender(err error) render.Renderer {
 var ErrorNotFound = &ErrorResponse{
 	HTTPStatusCode: 404,
 	StatusText:     "Resource not found.",
+}
+
+// ErrorInternalServer is a Renderer for internal server errors.
+var ErrorInternalServer = &ErrorResponse{
+	HTTPStatusCode: 500,
+	StatusText:     "Internal server error.",
 }
