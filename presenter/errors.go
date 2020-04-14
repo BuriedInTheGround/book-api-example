@@ -1,4 +1,4 @@
-package main
+package presenter
 
 import (
 	"net/http"
@@ -6,7 +6,6 @@ import (
 	"github.com/go-chi/render"
 )
 
-// ErrorResponse is a payload for errors handling.
 type ErrorResponse struct {
 	Error          error `json:"-"` // Low-level runtime error.
 	HTTPStatusCode int   `json:"-"` //HTTP reponse status code.
