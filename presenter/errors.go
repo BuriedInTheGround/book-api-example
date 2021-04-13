@@ -9,7 +9,7 @@ import (
 // ErrorResponse is a payload for errors handling.
 type ErrorResponse struct {
 	Error          error `json:"-"` // Low-level runtime error.
-	HTTPStatusCode int   `json:"-"` // HTTP reponse status code.
+	HTTPStatusCode int   `json:"-"` // HTTP response status code.
 
 	StatusText string `json:"status"`          // User-level status message.
 	AppCode    int64  `json:"code,omitempty"`  // Application-specific error code.
